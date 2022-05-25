@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick=playGame()>Start Game</button>
+    </br>
+    Player 1 - Won:<label id="playerOneWon">0</label>
+    </br>
+    Player 2 - Won:<label id="playerTwoWon">0</label>
+    </br>
+    <div id="roundDetails"></div>
+    </br>
+    <div id="winner"></div>
+</body>
+<script>
+    function playGame() {
+        let p1Score = 0, p2Score = 0, p1DisplayScore = document.getElementById("playerOneWon"), p2DisplayScore = document.getElementById("playerTwoWon");
+        while (p1Score < 3 && p2Score < 3) {
+            roundWinner = playRound();
+            if (roundWinner === 1) {
+                p1Score++;
+                p1DisplayScore.innerHTML = p1Score;
+            }
+            else {
+                p2Score++;
+                p2DisplayScore.innerHTML = p2Score;
+            }
+        }
+        let winner = document.getElementById("winner")
+        if (p1Score > p2Score) {
+            winner.innerHTML = "Player1 wins the game"
+        }
+        else {
+            winner.innerHTML = "Player2 wins the game"
+        }
+
+    }
+
+    function playRound() {
+        let p1 = 100, p2 = 100, turn = 1, roundDetails = document.getElementById("roundDetails");
+        while (p1 > 0 && p2 > 0) {
+            let bulletDamage = generateRandom();
+            if (turn === 1) {
+                p2 -= bulletDamage;
+                turn = 2;
+            }
+            else {
+                p1 -= bulletDamage;
+                turn = 1;
+            }
+        }
+        if (p1 > 0) {
+            return 1;
+        }
+        else {
+            return 2;
+        }
+      
+    }
+
+    function generateRandom() {
+        return Math.floor(Math.random() * 6);
+    }
+</script>
+
+</html>
